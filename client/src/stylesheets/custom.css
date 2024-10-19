@@ -1,0 +1,147 @@
+.card {
+    background-color: white;
+    border: 1px solid #474544;
+}
+
+.w-400 {
+    width: 400px;
+}
+
+.content {
+    min-height: 82vh;
+    /* border: 1px solid #b1b1b1; */
+}
+
+.underline {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+i {
+    font-size: 20px;
+}
+
+table {
+    border: 1px solid #b1b1b1;
+}
+
+thead th {
+    border-bottom: 1px solid #b1b1b1 !important;
+    text-transform: uppercase;
+}
+
+.search-input {
+    height: 60px;
+    border-radius: 5px;
+}
+
+.divider {
+    border-bottom: 1px solid #e1e1e1;
+    margin: 10px 0;
+}
+
+.br-card {
+    border-radius: 10% 10%;
+}
+
+.br-img {
+    border-radius: 10% 10% 0% 0%;
+}
+
+.bg-img {
+    background-image: url("https://wallpapers.com/images/featured/movie-9pvmdtvz4cb0xl37.jpg");
+    background-repeat: no-repeat;
+}
+
+.ticket-img {
+    background-image: url("https://t4.ftcdn.net/jpg/01/93/23/13/360_F_193231323_4JS9oq4hUCDRNYIVuYf90ZVSeQTgl6kf.jpg");
+    opacity: 75%;
+    border-radius: 10px;
+}
+
+.hover1:hover{
+    color: red;
+}
+
+.hover2:hover{
+    border: 1px solid rgb(12, 8, 227);
+    background-color: rgb(12, 8, 227);
+}
+
+.modal{
+    background-color: #474544;
+}
+
+/* seats */
+
+.seat {
+    height: 30px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #b1b1b1;
+    cursor: pointer;
+}
+
+
+.selected-seat {
+    background-color: #118838;
+}
+
+.selected-seat h1 {
+    color: white !important;
+}
+
+.booked-seat {
+    background-color: #b1b1b1;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+
+/* loader styling */
+.loader-parent {
+    position: fixed;
+    background-color: black;
+    inset: 0;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.loader {
+    width: 120px;
+    height: 22px;
+    border-radius: 20px;
+    color: #1a1979;
+    border: 2px solid;
+    position: relative;
+}
+
+.loader::before {
+    content: "";
+    position: absolute;
+    margin: 2px;
+    inset: 0 100% 0 0;
+    border-radius: inherit;
+    background: currentColor;
+    animation: l6 2s infinite;
+}
+
+@keyframes l6 {
+    100% {
+        inset: 0
+    }
+}
