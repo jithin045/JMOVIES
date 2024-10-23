@@ -16,6 +16,7 @@ function BookShow() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+
     const getData = async () => {
         try {
             dispatch(Showloading());
@@ -63,42 +64,48 @@ function BookShow() {
 
 
     const getSeats = () => {
-        const columns = 12;
-        const totalSeats = show.totalSeats;
-        const rows = Math.ceil(totalSeats / columns);
+        const columns = 10; // Number of seats in each row
+        const totalSeats = show.totalSeats; // Total number of seats
+        const rows = Math.ceil(totalSeats / columns); // Calculate number of rows
+
+        const handleSeatClick = (seatLabel) => {
+            if (selectedSeats.includes(seatLabel)) {
+                setSelectedSeats(selectedSeats.filter((item) => item !== seatLabel));
+            } else {
+                setSelectedSeats([...selectedSeats, seatLabel]);
+            }
+        };
 
         return (
             <div className="flex gap-1 flex-col p-2 card bg-secondary br-5">
-                {Array.from(Array(rows).keys()).map((seat, index) => {
+                {Array.from(Array(rows).keys()).map((rowIndex) => {
+                    const rowLabel = String.fromCharCode(65 + rowIndex); // Generate row label (A, B, C...)
+
                     return (
-                        <div className="flex gap-1 justify-center">
-                            {Array.from(Array(columns).keys()).map((column, index) => {
-                                const seatNumber = seat * columns + column + 1;
+                        <div key={`row-${rowIndex}`} className="flex gap-1 justify-center">
+                            {Array.from(Array(columns).keys()).map((columnIndex) => {
+                                const seatNumber = columnIndex + 1; // Seat numbers: 1, 2, 3...
+                                const seatLabel = `${rowLabel}${seatNumber}`; // Create seat label like A1, A2...
+
                                 let seatClass = "seat";
 
-                                if (selectedSeats.includes(seat * columns + column + 1)) {
+                                if (selectedSeats.includes(seatLabel)) {
                                     seatClass = seatClass + " selected-seat";
                                 }
 
-                                if (show.bookedSeats.includes(seat * columns + column + 1)) {
+                                if (show.bookedSeats.includes(seatLabel)) {
                                     seatClass = seatClass + " booked-seat";
                                 }
 
                                 return (
-                                    seat * columns + column + 1 <= totalSeats && (
+                                    seatNumber <= totalSeats - rowIndex * columns && (
                                         <div
+                                            key={`seat-${seatLabel}`}
                                             className={seatClass}
-                                            onClick={() => {
-                                                if (selectedSeats.includes(seatNumber)) {
-                                                    setSelectedSeats(
-                                                        selectedSeats.filter((item) => item !== seatNumber)
-                                                    );
-                                                } else {
-                                                    setSelectedSeats([...selectedSeats, seatNumber]);
-                                                }
-                                            }}
+                                            onClick={() => handleSeatClick(seatLabel)}
+                                            aria-label={`Seat ${seatLabel}`}
                                         >
-                                            <h1 className="text-sm">{seat * columns + column + 1}</h1>
+                                            <h1 className="text-sm">{seatLabel}</h1>
                                         </div>
                                     )
                                 );
@@ -139,30 +146,36 @@ function BookShow() {
 
                 {/* seats */}
 
-                <div className="flex justify-center mt-2">{getSeats()}</div>
+                <div className="flex justify-center mt-2">
 
-                {selectedSeats.length > 0 && (
-                    <div className="mt-2 flex justify-center gap-2 items-center flex-col">
-                        <div className="flex justify-center">
-                            <div className="flex uppercase card p-2 gap-3">
-                                <h1 className="text-sm"><b>Selected Seats</b> : {selectedSeats.join(" , ")}</h1>
+                    <div>{getSeats()}</div>
 
-                                <h1 className="text-sm">
-                                    <b>Total Price</b> : {selectedSeats.length * show.ticketPrice}
-                                </h1>
+                </div>
+
+                {
+                    selectedSeats.length > 0 && (
+                        <div className="mt-2 flex justify-center gap-2 items-center flex-col">
+                            <div className="flex justify-center">
+                                <div className="flex uppercase card p-2 gap-3">
+                                    <h1 className="text-sm"><b>Selected Seats</b> : {selectedSeats.join(" , ")}</h1>
+
+                                    <h1 className="text-sm">
+                                        <b>Total Price</b> : {selectedSeats.length * show.ticketPrice}
+                                    </h1>
+                                </div>
                             </div>
+
+                            <div className='mt-2 flex justify-center'>
+
+                                <Button onClick={onBook} title="Book Ticket" />
+
+                            </div>
+
+
                         </div>
-
-                        <div className='mt-2 flex justify-center'>
-
-                            <Button onClick={onBook} title="Book Ticket" />
-
-                        </div>
-
-
-                    </div>
-                )}
-            </div>
+                    )
+                }
+            </div >
         )
     );
 }
