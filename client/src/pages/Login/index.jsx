@@ -16,7 +16,7 @@ function Login() {
             dispatch(Hideloading())
             if (response.success) {
                 message.success(response.message)
-                localStorage.setItem("token", response.data)
+                sessionStorage.setItem("token", response.data)
                 window.location.href = "/"
             }
             else {
@@ -29,7 +29,7 @@ function Login() {
     }
 
     useEffect(() => {
-        if (localStorage.getItem("token")) {
+        if (sessionStorage.getItem("token")) {
             navigate("/")
         }
     }, [])

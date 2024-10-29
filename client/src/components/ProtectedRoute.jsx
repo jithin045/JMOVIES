@@ -33,7 +33,7 @@ function ProtectedRoute({ children }) {
     }
 
     useEffect(() => {
-        if (localStorage.getItem('token')) {
+        if (sessionStorage.getItem('token')) {
             getCurrentUser();
         } else {
             navigate('/login')

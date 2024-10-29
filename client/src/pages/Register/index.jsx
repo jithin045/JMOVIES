@@ -30,7 +30,7 @@ function Register() {
     };
 
     useEffect(() => {
-        if (localStorage.getItem("token")) {
+        if (sessionStorage.getItem("token")) {
             navigate("/")
         }
     }, [])
