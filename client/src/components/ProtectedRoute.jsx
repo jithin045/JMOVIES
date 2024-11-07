@@ -65,7 +65,7 @@ function ProtectedRoute({ children }) {
 
                         <i class="ri-logout-circle-r-line ml-2"
                             onClick={() => {
-                                localStorage.removeItem("token")
+                                sessionStorage.removeItem("token")
                                 navigate('/login')
                             }}
                         ></i>
